@@ -1,0 +1,9 @@
+local placeId = game.PlaceId
+ 
+ if placeId == 6329844902 then
+		lastpirates = true
+    end
+if lastpirates then
+	  print("READY LAST PIRATES") 
+	  loadstring(game:HttpGet("https://raw.githubusercontent.com/OptusN1/MAIN/main/Last%20Pirate"))()
+	end
