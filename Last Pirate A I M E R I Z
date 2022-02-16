@@ -1,0 +1,758 @@
+
+
+wait(0)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "A I M E R I Z"; 
+    Text = "Checking Game..."; 
+    Icon = ""; 
+    Duration = 2;
+})
+wait(1)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "A I M E R I Z"; 
+    Text = "Last Pirates"; 
+    Icon = ""; 
+    Duration = 4;
+})
+wait(2)
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/OptusN1/VENYX-UI-2/main/VENYX%20UI%20%3D-%3D"))()
+local uii = library.new("LAST PIRATES | A I M E R I Z", 5013109572)
+
+
+local ui = game:GetService("CoreGui"):FindFirstChild("object")
+if ui then
+    ui:Destroy()
+end
+ 
+local mainpage = uii:addPage("Main Page", 7040391851)
+local farmsection = mainpage:addSection("Auto Farm")
+farmsection:addToggle("Auto Farm Level", false, function(a)
+	_G.autofarm = a
+
+			task.spawn(function()
+		while task.wait() do
+			if not _G.autofarm then break end
+			pcall(function()
+				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+				startQuest()
+                autoHaki()
+				CheckLevel()
+				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
+					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,DistanceFromMonster,0) * CFrame.Angles(math.rad(90),0,0)
+						click()
+					end
+				end
+			end)
+		end
+	end)
+end)
+farmsection:addToggle("Auto SetSpawn", false, function(a)
+_G.AutoSetSpawn = a
+end)
+farmsection:addToggle("Auto Equip", false, function(a)
+_G.AutoEquiped = a
+end)
+local Weaponlist = {}
+local Weapon = nil
+
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+    table.insert(Weaponlist,v.Name)
+end
+farmsection:addDropdown("Select Weapon",Weaponlist, function(a)
+    Weapon = a
+end)
+farmsection:addSlider("Distance From Mon", -9, 0, -100, function(value)
+	DistanceFromMonster = value
+end)
+farmsection:addToggle("Auto Use All Skill", function(a)
+    _G.autoSkill = a
+
+while _G.autoSkill do wait()
+	useSkill()
+        end
+    end)
+end)
+farmsection:addButton("Refresh Weapon", function(a)
+    table.clear(Weaponlist)
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+   table.insert(Weaponlist,v.Name)
+end
+end)
+local farmsection2 = mainpage:addSection("Auto Haki")
+farmsection2:addToggle("Auto Buso Haki", false, function(a)
+_G.Haki = a
+
+while _G.Haki do wait()
+    autoHaki()
+	end
+end)
+local statspage = uii:addPage("Auto Stats", 7040410130)
+local statssection = statspage:addSection("Auto Stats")
+statssection:addToggle("Auto Melee Stats", false, function(a)
+	_G.Melee = a
+	
+	task.spawn(function()
+		while task.wait() do
+			if not _G.Melee then break end
+			game:GetService("ReplicatedStorage").okStats:FireServer(1,"1")
+		end
+	end)
+end)
+
+statssection:addToggle("Auto Sword Stats", false, function(a)
+	_G.Sword = a
+	
+	task.spawn(function()
+		while task.wait() do
+			if not _G.Sword then break end
+			game:GetService("ReplicatedStorage").okStats:FireServer(1,"2")
+		end
+	end)
+end)
+
+statssection:addToggle("Auto Defense Stats", false, function(a)
+	_G.Defense = a
+	
+	task.spawn(function()
+		while task.wait() do
+			if not _G.Defense then break end
+			game:GetService("ReplicatedStorage").okStats:FireServer(1,"3")
+		end
+	end)
+end)
+
+statssection:addToggle("Auto Devil Fruit Stats", false, function(a)
+	_G.Devil = a
+	
+	task.spawn(function()
+		while task.wait() do
+			if not _G.Devil then break end
+			game:GetService("ReplicatedStorage").okStats:FireServer(1,"4")
+		end
+	end)
+end)
+local tppage = uii:addPage("Teleport", 7044233235)
+local tp1 = tppage:addSection("Server")
+tp1:addButton("Rejoin Server",function()
+	game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+end)
+tp1:addButton("Server Hop",function()
+    while task.wait() do
+        local Servers = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. game.PlaceId .. '/servers/Public?sortOrder=Asc&limit=100'))
+        for i,v in pairs(Servers.data) do
+            if v.id ~= game.JobId then
+                wait()
+                game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, v.id)
+            end
+        end
+    end
+end)
+tp1:addButton("Server Hop [ Lower Server ]", function()
+	HopLowerServer()
+end)
+local tp2 = tppage:addSection("Teleport Island")
+tp2:addButton("Spawn Island",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(370.98120117188, 40.559078216553, -1868.9086914062)
+end)
+tp2:addButton("Carnival Island",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1653.0689697266, 30.821800231934, 593.72113037109)
+end)
+tp2:addButton("Rock Island",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2188.47607, 22.7485447, -2695.05811, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end)
+tp2:addButton("Chef Ship",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1182.13623, 88.5703354, -5245.71826, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+end)
+tp2:addButton("Fishman Island",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4847.14111, 33.3479919, 2337.87524, 0.971885502, 0, 0.235454008, 0, 1, 0, -0.235454008, 0, 0.971885502)
+end)
+tp2:addButton("Winter Island",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2500.27808, 22.3261414, 4474.12891, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+end)
+tp2:addButton("Sky Island",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-15.8356323, 253.549408, 3461.96777, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+end)
+tp2:addButton("Monkey Island",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3027.69263, 40.583374, -2901.51099, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end)
+tp2:addButton("Judas Island",function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6317, 33, 3861)
+	end)
+tp2:addButton("Factory", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").Factory.Block.CFrame
+end)
+local plypage = uii:addPage("Players", 7252023075)
+local plysection = plypage:addSection("Players")
+local playerlist = {}
+ 
+for i,v in pairs(game.Players:GetPlayers())do
+   if v ~= game.Players.LocalPlayer then
+       table.insert(playerlist,v.Name)
+   end
+end
+ 
+local playerdrop = plysection:addDropdown("Select Players", playerlist, function(abc)
+ Player = abc
+end)
+ 
+game.Players.PlayerAdded:Connect(function(player)
+   local name = player.Name
+   table.insert(playerlist,name)
+   playerdrop:Refresh(playerlist)
+end)
+ 
+game.Players.PlayerRemoving:Connect(function(player)
+   local name = player.Name
+   for i,v in pairs(playerlist)do
+       if v == name then  
+           table.remove(playerlist,i)
+       end
+   end
+   playerdrop:Refresh(playerlist)
+end)
+plysection:addToggle("Kill Player", _G.AutoClick, function(Killl)
+_G.KillPlayer = Killl
+_G.AutoClick = Killl
+end)
+plysection:addButton("Teleport Player", function()
+    TP(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+end)
+plysection:addToggle("Spectate Player", false, function(vu)
+    Spectate = vu
+    repeat game:GetService("RunService").Heartbeat:wait()
+        game.Workspace.Camera.CameraSubject = game.Players:FindFirstChild(Player).Character.Humanoid
+    until Spectate == false
+    game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+end)
+ 
+plysection:addToggle("Aimbot Skill", false, function(vu)
+	AimSkillNearest = vu
+end)
+plysection:addSlider("Distance From Player", 3, 0, 100, function(a)
+	Distance = a
+end)
+local plysection2 = plypage:addSection("LocalPlayer")
+plysection2:addSlider("WalkSpeed", 16, 16, 1000, function(value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+end)
+plysection2:addSlider("JumpPower", 50, 50, 1000, function(value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+end)
+plysection2:addDropdown("Fps Cap", {"60","85","115","160","255","350","400"}, function(a)
+    Fps = a
+end)
+plysection2:addButton("Set Fps Cap", function(value)
+pcall(function()
+	setfpscap(Fps)
+	end)
+end)
+plysection2:addToggle("Walk on Water", false, function(a)
+    _G.Water = a
+end)
+		function activatefly()
+			local mouse = game.Players.LocalPlayer:GetMouse''
+			localplayer = game.Players.LocalPlayer
+			game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+			local torso = game.Players.LocalPlayer.Character.HumanoidRootPart
+			local speedSET = 24
+			local keys = {a = false, d = false, w = false, s = false}
+			local e1
+			local e2
+			local function start()
+				local pos = Instance.new("BodyPosition",torso)
+				local gyro = Instance.new("BodyGyro",torso)
+				pos.Name="EPIXPOS"
+				pos.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+				pos.position = torso.Position
+				gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+				gyro.cframe = torso.CFrame
+				repeat wait()
+					localplayer.Character.Humanoid.PlatformStand = true
+					local new = gyro.cframe - gyro.cframe.p + pos.position
+					if not keys.w and not keys.s and not keys.a and not keys.d then
+					   speed = 1
+					end
+					if keys.w then
+					   new = new + workspace.CurrentCamera.CoordinateFrame.lookVector * speed
+					   speed = speed+speedSET
+					end
+					if keys.s then
+					   new = new - workspace.CurrentCamera.CoordinateFrame.lookVector * speed
+					   speed = speed+speedSET
+					end
+					if keys.d then
+					   new = new * CFrame.new(speed,0,0)
+					   speed = speed+speedSET
+					end
+					if keys.a then
+					   new = new * CFrame.new(-speed,0,0)
+					   speed = speed+speedSET
+					end
+					if speed > speedSET then
+					   speed = speedSET
+					end
+					   pos.position = new.p
+					   if keys.w then
+						   gyro.cframe = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad(speed*15),0,0)
+						elseif keys.s then
+						   gyro.cframe = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(math.rad(speed*15),0,0)
+						else
+						gyro.cframe = workspace.CurrentCamera.CoordinateFrame
+					end
+				   until not Fly
+				if gyro then 
+					gyro:Destroy() 
+				end
+				if pos then 
+					pos:Destroy() 
+				end
+				flying = false
+				localplayer.Character.Humanoid.PlatformStand = false
+				speed = 0
+			end
+			e1 = mouse.KeyDown:connect(function(key)
+				if not torso or not torso.Parent then 
+					flying = false
+					e1:disconnect()
+					e2:disconnect()
+					return 
+				end
+				if key == "w" then
+					keys.w = true
+				elseif key == "s" then
+					keys.s = true
+				elseif key == "a" then
+					keys.a = true
+				elseif key == "d" then
+					keys.d = true
+				end
+			end)
+			e2 = mouse.KeyUp:connect(function(key)
+				if key == "w" then
+					keys.w = false
+				elseif key == "s" then
+					keys.s = false
+				elseif key == "a" then
+					keys.a = false
+				elseif key == "d" then
+					keys.d = false
+				end
+			end)
+			start()
+		end
+		
+		plysection2:addToggle("Fly", false, function(vu)
+		   Fly = vu
+		   activatefly()
+		end)
+	plysection2:addButton("Destory Name Tag",function()
+	game.Players.LocalPlayer.Character.NameTag:Destroy()
+	end)
+	plysection2:addButton("Full Bright", function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/06iG6YkU", true))()
+	end)
+	plysection2:addButton("Beautiful Graphic", function()
+		BeautifulMode()
+	end)
+	plysection2:addToggle("Anti AFK",true,function(vu)
+        local vu = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:connect(function()
+            vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+            wait(1)
+            vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        end)
+    end)
+local shopesp = uii:addPage("Shop-Esp", 7044226690)
+local shopsection = shopesp:addSection("Teleport Shop")
+
+shopsection:addButton("Buso Haki Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").HakiSeller.AAA.BusoHaki.CFrame
+end)
+
+shopsection:addButton("Ken Haki Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = CFrame.new(-6278.6826171875, 32.993167877197, 3832.9084472656)
+end)
+
+shopsection:addButton("Random Color Haki Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace")["Random Color haki"]["Random Color haki"].Head.CFrame
+end)
+
+shopsection:addButton("Random Fruit Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").RandomFruit.HumanoidRootPart.CFrame
+end)
+
+shopsection:addButton("Black Leg Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").Blackleg.Click.CFrame
+end)
+
+shopsection:addButton("Pole Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace")["Pole Seller"].PoleClick.CFrame
+end)
+
+shopsection:addButton("Cutlass Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").cutlass.Click.CFrame
+end)
+
+shopsection:addButton("Bisento Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").Bisento.Part.CFrame
+end)
+
+shopsection:addButton("Bisento V2 Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace")["BisenV2 NPC"].Model.Model.BisenV2["Right Leg"].CFrame
+end)
+
+shopsection:addButton("Saber Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = CFrame.new(3138.58984375, 71.283683776855, -2338.1533203125)
+end)
+
+shopsection:addButton("Shisui Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").MISC.Handle.CFrame
+end)
+
+shopsection:addButton("Katana Shop", function()
+    local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+    plr.CFrame = game:GetService("Workspace").KatanaShop.KatanaShop.Head.CFrame
+end)
+
+local settingpage = uii:addPage("Setting", 5012544693)
+local setsection = settingpage:addSection("Theme")
+
+-- themes
+local objects = {}
+local themes = {
+	Background = Color3.fromRGB(0, 0, 0), 
+	Glow = Color3.fromRGB(138, 0, 255), 
+	Accent = Color3.fromRGB(0, 0, 0), 
+	LightContrast = Color3.fromRGB(0, 0, 0), 
+	DarkContrast = Color3.fromRGB(0, 0, 0),  
+	TextColor = Color3.fromRGB(138, 0, 255)
+}
+
+ 
+	for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+		setsection:addColorPicker(theme, color, function(color3)
+		uii:setTheme(theme, color3)
+		end)
+		end
+		
+		-- load
+	uii:SelectPage(uii.pages[1], true) 
+
+
+    local keysection = settingpage:addSection("KeyBinds")
+    keysection:addKeybind("Toggle UI", Enum.KeyCode.RightControl, function()
+    uii:toggle()
+    end, function()
+    end)
+	keysection:addButton("Destory UI", function()
+game.Players.LocalPlayer:Kick("กำลังรี HWID")
+wait(2)
+game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+	end)
+    spawn(function()
+		game:GetService("RunService").RenderStepped:Connect(function()
+		 pcall(function()
+			 if _G.AutoClick then
+				 game:GetService'VirtualUser':CaptureController()
+				 game:GetService'VirtualUser':Button1Down(Vector2.new(69, 69))
+			 end
+		 end)
+	 end) 
+	 end)
+
+function click()
+    game:GetService("VirtualUser"):CaptureController()
+    game:GetService("VirtualUser"):Button1Down(Vector2.new(69, 69))		
+end
+
+spawn(function()
+	game:GetService("RunService").RenderStepped:Connect(function()
+	 pcall(function()
+ if _G.KillPlayer then
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Player].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,Distance)
+ end
+ end)
+ end)
+ end)
+ spawn(function()
+	game:GetService("RunService").RenderStepped:Connect(function()
+	 pcall(function()
+ if _G.autofarm then
+	startQuest()
+ end
+end)
+end)
+end)
+
+ function autoHaki()
+    if not game.Players.LocalPlayer.Character:FindFirstChild("Buso") then
+        game:GetService("ReplicatedStorage").Haki:FireServer("Buso")
+        game:GetService("ReplicatedStorage").HakiRemote:FireServer("Ken")
+    end
+end
+
+function CheckLevel()
+local Level = game.Players.LocalPlayer.PlayerStats.Level.Value
+if Level == 1 or Level <= 14 then
+		MONSTER = "Bandit [Lv:5]"                        -- start
+		elseif Level == 15 or Level <= 29 then
+			MONSTER = "Pirates [Lv:15]"                   ----- Pirates
+		elseif Level == 30 or Level <= 59 then
+			MONSTER = "BagyPirates [Lv:30]" ---------- Bagy
+	elseif Level == 60 or Level <= 99 then
+		MONSTER = "Clown Pirate [Lv:60]" ----- Clown Pirates
+	elseif Level == 100 or Level <= 149 then
+		MONSTER = "BlackCoat Pirate [Lv:100]" ------- Boss in Bagy Island
+	elseif Level == 150 or Level <= 399 then
+		MONSTER = "Revolutionary Troop [Lv:150]" ------ Rock Island
+	elseif Level == 400 or Level <= 499 then
+		MONSTER = "Skilled Chef [Lv:400]" -------- Ship
+	elseif Level == 500 or Level <= 599 then
+		MONSTER = "Head Chef [Lv:500]" ------ Boss Ship
+	elseif Level == 600 or Level <= 699 then
+		MONSTER = "Fishman [Lv:600]" ------ Fishman
+	elseif Level == 700 or Level <= 849 then
+		MONSTER = "WinterBandit [Lv:700]" ----- Winter
+	elseif Level == 850 or Level <= 949 then
+		MONSTER = "Sky Bandit [Lv:800]" ----- Sky Bandit
+	elseif Level == 950 or Level <= 1149 then
+		MONSTER = "SkyBandit Boss [Lv:950]" ----- SkyBandit Boss
+	elseif Level == 1150 or Level <= 1199 then
+		MONSTER = "Monkey [Lv:1150]" ----- Monkey
+	elseif Level == 1200 or Level <= 1399 then
+		MONSTER = "Monkey King [Lv:1200]" ----- Monkey Boss
+	elseif Level == 950 or Level <= 9999 then
+		MONSTER = "Skeleton [Lv:1400]" ----- Skeleton In Judas Island
+	end
+end
+function startQuest()
+    task.spawn(function()
+        if game:GetService("Players").LocalPlayer.PlayerGui.QuestGui.Enabled == false then
+			CheckLevel()
+            lol = string.split(MONSTER," [")
+            game:GetService("ReplicatedStorage").FuncQuest:InvokeServer(lol[1])
+        end
+    end)
+end
+
+
+ spawn(function()
+	game:GetService("RunService").RenderStepped:Connect(function()
+	 pcall(function()
+ if _G.autofarm and _G.AutoSetSpawn then
+	game:GetService("ReplicatedStorage").SetSpawn:InvokeServer()
+end
+end)
+end)
+end)
+
+spawn(function()
+	game:GetService("RunService").RenderStepped:Connect(function()
+	 pcall(function()
+ if _G.autofarm and _G.AutoEquiped then
+	game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
+ end
+end)
+end)
+end)
+function useSkill()
+	game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
+	game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
+	game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
+	game:GetService("VirtualInputManager"):SendKeyEvent(true,"V",false,game)
+        end
+    
+
+
+
+spawn(function()
+    pcall(function()
+        while wait() do
+			if _G.LightMode then
+				if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("PointLight") then
+					local a = Instance.new("PointLight")
+					a.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+					a.Range = 99999999
+					a.Color = Color3.fromRGB(255, 180, 60)
+				end
+			end
+        end
+    end)
+end)
+
+function BeautifulMode()
+	_G.LightMode = true
+	if game:GetService("Lighting"):FindFirstChild("BloomEffect") then
+		game:GetService("Lighting"):FindFirstChild("BloomEffect"):Destroy()
+	end
+	if game:GetService("Lighting"):FindFirstChild("ColorCorrectionEffect") then
+		game:GetService("Lighting"):FindFirstChild("ColorCorrectionEffect"):Destroy()
+	end
+	if game:GetService("Lighting"):FindFirstChild("DepthOfFieldEffect") then
+		game:GetService("Lighting"):FindFirstChild("DepthOfFieldEffect"):Destroy()
+	end
+	if game:GetService("Lighting"):FindFirstChild("ColorCorrectionEffect") then
+		game:GetService("Lighting"):FindFirstChild("ColorCorrectionEffect"):Destroy()
+	end
+	if game:GetService("Lighting"):FindFirstChild("ColorCorrectionEffect2") then
+		game:GetService("Lighting"):FindFirstChild("ColorCorrectionEffect2"):Destroy()
+	end
+	if game:GetService("Lighting"):FindFirstChild("SunRaysEffect") then
+		game:GetService("Lighting"):FindFirstChild("SunRaysEffect"):Destroy()
+	end
+	local a = game.Lighting
+	a.Ambient = Color3.fromRGB(31, 31, 31)
+	a.Brightness = 0.7
+	a.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+	a.ColorShift_Top = Color3.fromRGB(255, 102, 31)
+	a.EnvironmentDiffuseScale = 0.205
+	a.EnvironmentSpecularScale = 0.522
+	a.GlobalShadows = true
+	a.OutdoorAmbient = Color3.fromRGB(67, 67, 67)
+	a.ShadowSoftness = 0.5
+	a.GeographicLatitude = -15.525
+	a.ExposureCompensation = 0.75
+	local b = Instance.new("BloomEffect", a)
+	b.Name = "BloomEffect"
+	b.Enabled = true
+	b.Intensity = 0.04
+	b.Size = 1900
+	b.Threshold = 0.915
+	local c = Instance.new("ColorCorrectionEffect", a)
+	c.Name = "ColorCorrectionEffect"
+	c.Brightness = 0.176
+	c.Contrast = 0.39
+	c.Enabled = true
+	c.Saturation = 0.2
+	c.TintColor = Color3.fromRGB(255, 227, 128)
+	local d = Instance.new("DepthOfFieldEffect", a)
+	d.Name = "DepthOfFieldEffect"
+	d.Enabled = true
+	d.FarIntensity = 0.077
+	d.FocusDistance = 21.54
+	d.InFocusRadius = 20.77
+	d.NearIntensity = 0.277
+	local e = Instance.new("ColorCorrectionEffect", a)
+	e.Name = "ColorCorrectionEffect"
+	e.Brightness = 0.3
+	e.Contrast = -0.07
+	e.Saturation = 0
+	e.Enabled = true
+	e.TintColor = Color3.fromRGB(255, 247, 239)
+	local e2 = Instance.new("ColorCorrectionEffect", a)
+	e2.Name = "ColorCorrectionEffect2"
+	e2.Brightness = 0.1
+	e2.Contrast = 0.45
+	e2.Saturation = -0.1
+	e2.Enabled = true
+	e2.TintColor = Color3.fromRGB(167, 167, 167)
+	local s = Instance.new("SunRaysEffect", a)
+	s.Name = "SunRaysEffect"
+	s.Enabled = true
+	s.Intensity = 0.01
+	s.Spread = 0.146
+end
+
+function TPReturner()
+	local Site;
+	if foundAnything == "" then
+		Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+	else
+		Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+	end
+	local ID = ""
+	if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+		foundAnything = Site.nextPageCursor
+	end
+	local num = 0;
+	for i,v in pairs(Site.data) do
+		local Possible = true
+		ID = tostring(v.id)
+		if tonumber(v.maxPlayers) > tonumber(v.playing) then
+			for _,Existing in pairs(AllIDs) do
+				if num ~= 0 then
+					if ID == tostring(Existing) then
+						Possible = false
+					end
+				else
+				if tonumber(actualHour) ~= tonumber(Existing) then
+					local delFile = pcall(function()
+						--delfile("NotSameServers.json")
+						AllIDs = {}
+						table.insert(AllIDs, actualHour)
+					end)
+				end
+			end
+			num = num + 1
+		end
+		if Possible == true then
+			table.insert(AllIDs, ID)
+			wait()
+			pcall(function()
+				--writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+				wait()
+				game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+			end)
+			end
+		end
+	end
+end
+
+function Teleport()
+	while wait() do
+		pcall(function()
+			TPReturner()
+			if foundAnything ~= "" then
+				TPReturner()
+			end
+		end)
+	end
+end
+
+function HopLowerServer()
+	local maxplayers, gamelink, goodserver, data_table = math.huge, "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+	if not _G.FailedServerID then _G.FailedServerID = {} end
+	local function serversearch()
+		data_table = game:GetService"HttpService":JSONDecode(game:HttpGetAsync(gamelink))
+		for _, v in pairs(data_table.data) do
+			pcall(function()
+				if type(v) == "table" and v.id and v.playing and tonumber(maxplayers) > tonumber(v.playing) and not table.find(_G.FailedServerID, v.id) then
+					maxplayers = v.playing
+					goodserver = v.id
+				end
+			end)
+		end
+	end
+	function getservers()
+		pcall(serversearch)
+		for i, v in pairs(data_table) do
+			if i == "nextPageCursor" then
+				if gamelink:find"&cursor=" then
+					local a = gamelink:find"&cursor="
+					local b = gamelink:sub(a)
+					gamelink = gamelink:gsub(b, "")
+				end
+				gamelink = gamelink .. "&cursor=" .. v
+				pcall(getservers)
+			end
+		end
+	end
+	pcall(getservers)
+	if goodserver == game.JobId or maxplayers == #game:GetService"Players":GetChildren() - 1 then
+	end
+	table.insert(_G.FailedServerID, goodserver)
+	game:GetService"TeleportService":TeleportToPlaceInstance(game.PlaceId, goodserver)
+end
