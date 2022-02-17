@@ -27,7 +27,6 @@ end
 local mainpage = uii:addPage("Main Page", 7040391851)
 local farmsection = mainpage:addSection("Auto Farm")
 farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
-	_G.AutoEquiped = a
 	_G.autofarmUnder = a
 
 			task.spawn(function()
@@ -37,6 +36,7 @@ farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
 				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
 				startQuest()
                 autoHaki()
+				AutoEquipTool()
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
@@ -49,7 +49,6 @@ farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
 	end)
 end)
 farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
-	_G.AutoEquiped = a
 	_G.autofarmTop = a
 
 			task.spawn(function()
@@ -59,6 +58,7 @@ farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
 				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
 				startQuest()
                 autoHaki()
+				AutoEquipTool()
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
@@ -71,7 +71,6 @@ farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
 	end)
 end)
 farmsection:addToggle("Auto Farm Level [ Behide ]", false, function(a)
-	_G.AutoEquiped = a
 	_G.autofarmBehide = a
 
 			task.spawn(function()
@@ -81,6 +80,7 @@ farmsection:addToggle("Auto Farm Level [ Behide ]", false, function(a)
 				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
 				startQuest()
                 autoHaki()
+				AutoEquipTool()
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
@@ -527,15 +527,6 @@ spawn(function()
  end)
  end)
  end)
- spawn(function()
-	game:GetService("RunService").RenderStepped:Connect(function()
-	 pcall(function()
- if _G.autofarm then
-	startQuest()
- end
-end)
-end)
-end)
 
  function autoHaki()
     if not game.Players.LocalPlayer.Character:FindFirstChild("Buso") then
@@ -603,15 +594,9 @@ end)
 end)
 end)
 
-spawn(function()
-	game:GetService("RunService").RenderStepped:Connect(function()
-	 pcall(function()
-  if _G.AutoEquiped then
+function AutoEquipTool()
 	game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
- end
-end)
-end)
-end)
+end
 function useSkill()
 	game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
 	game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
