@@ -515,8 +515,12 @@ if Level == 1 or Level <= 14 then
 		MONSTER = "Clown Pirate [Lv:60]" ----- Clown Pirates
 	elseif Level == 100 or Level <= 149 then
 		MONSTER = "BlackCoat Pirate [Lv:100]" ------- Boss in Bagy Island
-	elseif Level == 150 or Level <= 399 then
-		MONSTER = "Revolutionary Troop [Lv:150]" ------ Rock Island
+	elseif Level == 150 or Level <= 199 then
+		MONSTER = "Revolutionary Troop [Lv:150]" ---------- Mon in Rock Island
+	elseif Level == 200 or Level <= 299 then
+		MONSTER = "Marines [Lv:200]"      ------- Marines
+	elseif Level == 300 or Level <= 399 then
+		MONSTER = "MarinesBoss [Lv:300]"      ------ MarinesBoss
 	elseif Level == 400 or Level <= 499 then
 		MONSTER = "Skilled Chef [Lv:400]" -------- Ship
 	elseif Level == 500 or Level <= 599 then
