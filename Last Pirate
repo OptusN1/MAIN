@@ -72,7 +72,6 @@ while _G.autoSkill do wait()
 	useSkill()
         end
     end)
-end)
 farmsection:addButton("Refresh Weapon", function(a)
     table.clear(Weaponlist)
 for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
@@ -664,95 +663,4 @@ function BeautifulMode()
 	s.Enabled = true
 	s.Intensity = 0.01
 	s.Spread = 0.146
-end
-
-function TPReturner()
-	local Site;
-	if foundAnything == "" then
-		Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
-	else
-		Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
-	end
-	local ID = ""
-	if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
-		foundAnything = Site.nextPageCursor
-	end
-	local num = 0;
-	for i,v in pairs(Site.data) do
-		local Possible = true
-		ID = tostring(v.id)
-		if tonumber(v.maxPlayers) > tonumber(v.playing) then
-			for _,Existing in pairs(AllIDs) do
-				if num ~= 0 then
-					if ID == tostring(Existing) then
-						Possible = false
-					end
-				else
-				if tonumber(actualHour) ~= tonumber(Existing) then
-					local delFile = pcall(function()
-						--delfile("NotSameServers.json")
-						AllIDs = {}
-						table.insert(AllIDs, actualHour)
-					end)
-				end
-			end
-			num = num + 1
-		end
-		if Possible == true then
-			table.insert(AllIDs, ID)
-			wait()
-			pcall(function()
-				--writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
-				wait()
-				game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
-			end)
-			end
-		end
-	end
-end
-
-function Teleport()
-	while wait() do
-		pcall(function()
-			TPReturner()
-			if foundAnything ~= "" then
-				TPReturner()
-			end
-		end)
-	end
-end
-
-function HopLowerServer()
-	local maxplayers, gamelink, goodserver, data_table = math.huge, "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
-	if not _G.FailedServerID then _G.FailedServerID = {} end
-	local function serversearch()
-		data_table = game:GetService"HttpService":JSONDecode(game:HttpGetAsync(gamelink))
-		for _, v in pairs(data_table.data) do
-			pcall(function()
-				if type(v) == "table" and v.id and v.playing and tonumber(maxplayers) > tonumber(v.playing) and not table.find(_G.FailedServerID, v.id) then
-					maxplayers = v.playing
-					goodserver = v.id
-				end
-			end)
-		end
-	end
-	function getservers()
-		pcall(serversearch)
-		for i, v in pairs(data_table) do
-			if i == "nextPageCursor" then
-				if gamelink:find"&cursor=" then
-					local a = gamelink:find"&cursor="
-					local b = gamelink:sub(a)
-					gamelink = gamelink:gsub(b, "")
-				end
-				gamelink = gamelink .. "&cursor=" .. v
-				pcall(getservers)
-			end
-		end
-	end
-	pcall(getservers)
-	if goodserver == game.JobId or maxplayers == #game:GetService"Players":GetChildren() - 1 then
-	end
-	table.insert(_G.FailedServerID, goodserver)
-	game:GetService"TeleportService":TeleportToPlaceInstance(game.PlaceId, goodserver)
 end
