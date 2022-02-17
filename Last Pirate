@@ -35,8 +35,8 @@ farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
                         plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-8,0) * CFrame.Angles(math.rad(90),0,0)
+						click()
                         AutoEquipWeapon()
-                        click()
 					end
 				end
 			end)
@@ -57,8 +57,8 @@ farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
                         plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,8,0) * CFrame.Angles(math.rad(-90),0,0)
-						AutoEquipWeapon()
 						click()
+                        AutoEquipWeapon()
 					end
 				end
 			end)
@@ -79,8 +79,8 @@ farmsection:addToggle("Auto Farm Level [ Behide ]", false, function(a)
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
                         plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,8)
+						click()
                         AutoEquipWeapon()
-                        click()
 					end
 				end
 			end)
@@ -544,14 +544,8 @@ if Level == 1 or Level <= 14 then
 		MONSTER = "BlackCoat Pirate [Lv:100]" ------- Boss in Bagy Island
 	elseif Level == 150 or Level <= 199 then
 		MONSTER = "Revolutionary Troop [Lv:150]" ---------- Mon in Rock Island
-	elseif Level == 200 or Level <= 299 then
+	elseif Level == 200 or Level <= 599 then
 		MONSTER = "Marines [Lv:200]"      ------- Marines
-	elseif Level == 300 or Level <= 399 then
-		MONSTER = "MarinesBoss [Lv:300]"      ------ MarinesBoss
-	elseif Level == 400 or Level <= 499 then
-		MONSTER = "Marines [Lv:200]"      ------- Ships
-	elseif Level == 500 or Level <= 599 then
-		MONSTER = "MarinesBoss [Lv:300]"      ------ ShipsBoss
 	elseif Level == 600 or Level <= 699 then
 		MONSTER = "Fishman [Lv:600]" ------ Fishman
 	elseif Level == 700 or Level <= 849 then
