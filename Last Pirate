@@ -1,5 +1,3 @@
-
-
 wait(0)
 game.StarterGui:SetCore("SendNotification", {
     Title = "A I M E R I Z"; 
@@ -37,6 +35,11 @@ farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
                         plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-7,0) * CFrame.Angles(math.rad(90),0,0)
 						click()
                         AutoEquipWeapon()
+					if not v:FindFirstChild("Humanoid") then
+						plr.Anchored = true
+					else 
+						plr.Anchored = false
+					end
 					end
 				end
 			end)
@@ -59,6 +62,11 @@ farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
                         plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,7,0) * CFrame.Angles(math.rad(-90),0,0)
 						click()
                         AutoEquipWeapon()
+						if not v:FindFirstChild("Humanoid") then
+							plr.Anchored = true
+						else 
+							plr.Anchored = false
+						end
 					end
 				end
 			end)
@@ -81,6 +89,11 @@ farmsection:addToggle("Auto Farm Level [ Behide ]", false, function(a)
                         plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,8)
 						click()
                         AutoEquipWeapon()
+						if v.Name == MONSTER and v.Humanoid.Health == 0 then	
+							plr.Anchored = true
+						else 
+							plr.Anchored = false
+						end
 					end
 				end
 			end)
@@ -489,96 +502,46 @@ shopsection:addButton("Shisui Shop", function()
     local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
     plr.CFrame = game:GetService("Workspace").MISC.Handle.CFrame
 end)
-local espsection = shopesp:addSection("Esp")
-espsection:addToggle("Esp Players",false,function(Value)
-    PlayerESP = Value
-	while PlayerESP do wait()
-		UpdatePlayer()
-	end
-end)
-espsection:addToggle("Esp Sea Beast",false,function(Value)
-    SBEsp = Value
+local espsection1 = shopesp:addSection("Player Esp")
+
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/Karrot-Esp"))()
+ 
+espsection1:addToggle("Player Esp", false,function(State)
+    ESP:Toggle(State)
+    end)
+ 
+	espsection1:addToggle("Tracers", false,function(State)
+    ESP.Tracers = State
+    end)
+ 
+	espsection1:addToggle("Name", false,function(State)
+    ESP.Names = State
+    end)
+ 
+	espsection1:addToggle("Boxes", false,function(State)
+    ESP.Boxes = State
+    end)
+local espsection = shopesp:addSection("More Esp")
+espsection:addToggle("Esp Sea Beast",false,function(value)
+    SBEsp = value
 	while ChestESP do wait()
-        UpdateChest()
+        UpdateSeaBeast()
     end
 end)
-espsection:addToggle("Esp Devil Fruit",false,function(Value)
-    DevilESP = Value
+espsection:addToggle("Esp Devil Fruit",false,function(value)
+    DevilESP = value
 	while DevilESP do wait()
 		UpdateDevilFruit()
 	end
 end)
-function UpdateDevilFruit()
-	for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-		pcall(function()
-			if string.find(v.Name, "Fruit") then
-				if DevilESP then
-					if string.find(v.Name, "Fruit") then
-						if not v.Handle:FindFirstChild("DevilESP"..Number) then
-							local Bb = Instance.new("BillboardGui", v.Handle)
-							Bb.Name = "DevilESP"..Number
-							Bb.ExtentsOffset = Vector3.new(0, 1, 0)
-							Bb.Size = UDim2.new(1, 200, 1, 30)
-							Bb.Adornee = v.Handle
-							Bb.AlwaysOnTop = true
-							local Textlb = Instance.new("TextLabel", Bb)
-							Textlb.Font = "GothamBold"
-							Textlb.FontSize = "Size14"
-							Textlb.Size = UDim2.new(1,0,1,0)
-							Textlb.BackgroundTransparency = 1
-							Textlb.TextStrokeTransparency = 0.5
-							Textlb.Text = v.Name.."\n"..math.round((v.Handle.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
-							Textlb.TextColor3 = Color3.new(255, 255, 255)
-						else
-							v.Handle["DevilESP"..Number].TextLabel.Text = v.Name.."\n"..math.round((v.Handle.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
-						end
-					end
-				else
-					if v.Handle:FindFirstChild("DevilESP"..Number) then
-						v.Handle:FindFirstChild("DevilESP"..Number):Destroy()
-					end
-				end
-			end
-		end)
-	end
-end
-function UpdatePlayer()
-	for i,v in pairs(game:GetService("Players"):GetChildren()) do
-		pcall(function()
-			if v.Character then
-				if PlayerESP then
-					if v.Character.Head and not v.Character.Head:FindFirstChild("PlayerESP"..Number) then
-						local Bb = Instance.new("BillboardGui", v.Character.Head)
-						Bb.Name = "PlayerESP"..Number
-						Bb.ExtentsOffset = Vector3.new(0, 1, 0)
-						Bb.Size = UDim2.new(1, 200, 1, 30)
-						Bb.Adornee = v.Character.Head
-						Bb.AlwaysOnTop = true
-						local Textlb = Instance.new("TextLabel", Bb)
-						Textlb.Font = "GothamBold"
-						Textlb.FontSize = "Size14"
-						Textlb.Text = v.Name.."\n"..math.round((v.Character.Head.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
-						Textlb.Size = UDim2.new(1,0,1,0)
-						Textlb.BackgroundTransparency = 1
-						Textlb.TextStrokeTransparency = 0.5
-						if v.Team == game:GetService("Players").LocalPlayer.Team then
-							Textlb.TextColor3 = Color3.new(0, 255, 0)
-						else
-							Textlb.TextColor3 = Color3.new(0, 0, 204)
-						end
-					else
-						v.Character.Head["PlayerESP"..Number].TextLabel.Text = v.Name.."\n"..math.round((v.Character.Head.Position - game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
-					end
-				else
-					if v.Character.Head:FindFirstChild("PlayerESP"..Number) then
-						v.Character.Head:FindFirstChild("PlayerESP"..Number):Destroy()
-					end
-				end
-			end
-		end)
-	end
-end
-
+local DF = uii:addPage("Devil Fruit", 7044284832)
+local DFSECTION = DF:addSection("Devil Fruit")
+DFSECTION:addToggle("Auto Buy Random Devil Fruit", false, function(value)
+	RandomDF = value
+end)
+DFSECTION:addToggle("Bring All Devil Fruit", false, function(value)
+	BringFruit = value
+end) 
 local MiscPage = uii:addPage("Misc, Other", 5012544693)
 local MiscSection = MiscPage:addSection("Music, Song")
 MiscSection:addToggle("Homura 炎", nil, function(value)
@@ -637,7 +600,43 @@ MiscSection:addToggle("Play Music", false, function(value)
 	a.SoundId = "rbxassetid://" .. SongID
 	a.Playing = value
 end)
-local settingpage = uii:addPage("Setting", 5012544693)
+local MiscSection2 = MiscPage:addSection("Fake Stats")
+MiscSection2:addTextbox("Fake Level", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.Level.Value = value
+end)
+MiscSection2:addTextbox("Fake Exp", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.Exp.Value = value
+end)
+MiscSection2:addTextbox("Fake Melee Stats", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.MeleeP.Value = value
+end)
+MiscSection2:addTextbox("Fake Sword Stats", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.SwordP.Value = value
+end)
+MiscSection2:addTextbox("Fake Defense Stats", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.DefenseP.Value = value
+end)
+MiscSection2:addTextbox("Fake Devil Fruit Stats", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.DevilFruitP.Value = value
+end)
+MiscSection2:addTextbox("Fake Points", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.DevilFruitP.Value = value
+end)
+MiscSection2:addTextbox("Fake Health", "[ Only Number ]", function(value)
+	game.Players.LocalPlayer.Character.Humanoid.MaxHealth = value
+wait(0.1)
+    game.Players.LocalPlayer.Character.Humanoid.Health = value
+end)
+MiscSection2:addTextbox("Fake Money", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.Money.Value = value
+end)
+MiscSection2:addTextbox("Fake LP", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.LP.Value = value
+end)
+MiscSection2:addTextbox("Fake Candy", "[ Only Number ]", function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.CandyCane.Value = value
+end)
+local settingpage = uii:addPage("Setting", 7040347038)
 local setsection = settingpage:addSection("Theme")
 
 -- themes
@@ -672,6 +671,15 @@ local themes = {
 		 wait(5)
 		 game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
 	end)
+
+	local CRR = uii:addPage("Credits", 7061136295)
+	local CR = CRR:addSection("Credits")
+CR:addButton("Discord | ServiceX Community", function()
+    setclipboard("https://discord.gg/9yCar9fQ")
+    end)
+CR:addButton("Made By Tokisaki Madara # 0 9 4 5", function()
+    setclipboard("Tokisaki Madara#0945")
+end)
     spawn(function()
 		game:GetService("RunService").RenderStepped:Connect(function()
 		 pcall(function()
@@ -860,4 +868,99 @@ end
 
 function AutoEquipWeapon()
 	game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild(Weapon))
+end
+
+spawn(function()
+	pcall(function()
+		while wait(.1) do
+            if BringFruit then
+                for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+                    if string.find(v.Name, "Fruit") then
+                        if v:IsA("Tool") then
+                            v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+							wait(.2)
+            				firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v.Handle,0)
+                        end
+                    end
+                end
+            end
+        end
+	end)
+end)
+
+
+Number = math.random(1,1000000)
+
+function UpdateDevilFruit()
+	for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+		pcall(function()
+			if string.find(v.Name, "Fruit") then
+				if DevilESP then
+					if string.find(v.Name, "Fruit") then
+						if not v.Handle:FindFirstChild("DevilESP"..Number) then
+							local Bb = Instance.new("BillboardGui", v.Handle)
+							Bb.Name = "DevilESP"..Number
+							Bb.ExtentsOffset = Vector3.new(0, 1, 0)
+							Bb.Size = UDim2.new(1, 200, 1, 30)
+							Bb.Adornee = v.Handle
+							Bb.AlwaysOnTop = true
+							local Textlb = Instance.new("TextLabel", Bb)
+							Textlb.Font = "GothamBold"
+							Textlb.FontSize = "Size14"
+							Textlb.Size = UDim2.new(1,0,1,0)
+							Textlb.BackgroundTransparency = 1
+							Textlb.TextStrokeTransparency = 0.5
+							Textlb.Text = v.Name.."\n"..math.round((v.Handle.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
+							Textlb.TextColor3 = Color3.new(255, 255, 255)
+						else
+							v.Handle["DevilESP"..Number].TextLabel.Text = v.Name.."\n"..math.round((v.Handle.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
+						end
+					end
+				else
+					if v.Handle:FindFirstChild("DevilESP"..Number) then
+						v.Handle:FindFirstChild("DevilESP"..Number):Destroy()
+					end
+				end
+			end
+		end)
+	end
+end
+
+Number = math.random(1,1000000)
+
+function UpdatePlayer()
+	for i,v in pairs(game:GetService("Players"):GetChildren()) do
+		pcall(function()
+			if v.Character then
+				if PlayerESP then
+					if v.Character.Head and not v.Character.Head:FindFirstChild("PlayerESP"..Number) then
+						local Bb = Instance.new("BillboardGui", v.Character.Head)
+						Bb.Name = "PlayerESP"..Number
+						Bb.ExtentsOffset = Vector3.new(0, 1, 0)
+						Bb.Size = UDim2.new(1, 200, 1, 30)
+						Bb.Adornee = v.Character.Head
+						Bb.AlwaysOnTop = true
+						local Textlb = Instance.new("TextLabel", Bb)
+						Textlb.Font = "GothamBold"
+						Textlb.FontSize = "Size14"
+						Textlb.Text = v.Name.."\n"..math.round((v.Character.Head.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
+						Textlb.Size = UDim2.new(1,0,1,0)
+						Textlb.BackgroundTransparency = 1
+						Textlb.TextStrokeTransparency = 0.5
+						if v.Team == game:GetService("Players").LocalPlayer.Team then
+							Textlb.TextColor3 = Color3.new(0, 255, 0)
+						else
+							Textlb.TextColor3 = Color3.new(0, 0, 204)
+						end
+					else
+						v.Character.Head["PlayerESP"..Number].TextLabel.Text = v.Name.."\n"..math.round((v.Character.Head.Position - game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
+					end
+				else
+					if v.Character.Head:FindFirstChild("PlayerESP"..Number) then
+						v.Character.Head:FindFirstChild("PlayerESP"..Number):Destroy()
+					end
+				end
+			end
+		end)
+	end
 end
