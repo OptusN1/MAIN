@@ -34,7 +34,7 @@ farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-8,0) * CFrame.Angles(math.rad(90),0,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-7,0) * CFrame.Angles(math.rad(90),0,0)
 						click()
                         AutoEquipWeapon()
 					end
@@ -56,7 +56,7 @@ farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,8,0) * CFrame.Angles(math.rad(-90),0,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,7,0) * CFrame.Angles(math.rad(-90),0,0)
 						click()
                         AutoEquipWeapon()
 					end
@@ -428,7 +428,7 @@ buysection:addButton("BlackBlade", function()
 game:GetService("ReplicatedStorage").BuySword:InvokeServer("BlackBlade")
 end)
 local buysection2 = shopesp:addSection("Melee")
-buysection:addButton("Black Leg", function()
+buysection2:addButton("Black Leg", function()
 game:GetService("ReplicatedStorage").BuyFS:InvokeServer("Blackleg")
 end)
 local shopsection = shopesp:addSection("Teleport Shop")
@@ -578,6 +578,65 @@ function UpdatePlayer()
 		end)
 	end
 end
+
+local MiscPage = uii:addPage("Misc, Other", 5012544693)
+local MiscSection = MiscPage:addSection("Music, Song")
+MiscSection:addToggle("Homura 炎", nil, function(value)
+	_G.MUSIC = value
+			Music = 6085563778
+			a = Instance.new("Sound", game:GetService("Workspace"))
+			a.Name = "MUSIC_FUNCTION"
+			a.Volume = 1
+			a.Looped = false
+			a.SoundId = "rbxassetid://" .. Music
+			a.Playing = value
+		end)
+		MiscSection:addToggle("YRN", nil, function(value)
+	_G.MUSIC = value
+			Music = 495478375
+			a = Instance.new("Sound", game:GetService("Workspace"))
+			a.Name = "MUSIC_FUNCTION"
+			a.Volume = 1
+			a.Looped = false
+			a.SoundId = "rbxassetid://" .. Music
+			a.Playing = _G.MUSIC
+		end)
+		MiscSection:addToggle("No Lie ", false, function(value)
+	_G.MUSIC = value
+					Music = 3391276370
+					a = Instance.new("Sound", game:GetService("Workspace"))
+					a.Name = "MUSIC_FUNCTION"
+					a.Volume = 1
+					a.Looped = false
+					a.SoundId = "rbxassetid://" .. Music
+					a.Playing = value
+				end)
+				MiscSection:addToggle("Play With Fire ", false, function(value)
+			_G.MUSIC = value
+					Music = 1405159065
+					a = Instance.new("Sound", game:GetService("Workspace"))
+					a.Name = "MUSIC_FUNCTION"
+					a.Volume = 1
+					a.Looped = false
+					a.SoundId = "rbxassetid://" .. Music
+					a.Playing = value
+				end)
+				MiscSection:addTextbox("Music ID", "MUSIC ID HERE", function(value, focusLost)
+					SongID = value
+					
+					if focusLost then
+					uii:Notify("Confirm?", value)
+					end
+					end)
+MiscSection:addToggle("Play Music", false, function(value)
+	_G.MUSIC = value
+	a = Instance.new("Sound", game:GetService("Workspace"))
+	a.Name = "MUSIC_FUNCTION"
+	a.Volume = 1
+	a.Looped = false
+	a.SoundId = "rbxassetid://" .. SongID
+	a.Playing = value
+end)
 local settingpage = uii:addPage("Setting", 5012544693)
 local setsection = settingpage:addSection("Theme")
 
