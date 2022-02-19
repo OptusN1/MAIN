@@ -32,7 +32,7 @@ farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-7,0) * CFrame.Angles(math.rad(90),0,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-8,0) * CFrame.Angles(math.rad(90),0,0)
 						click()
                         AutoEquipWeapon()
 					if not v:FindFirstChild("Humanoid") then
@@ -59,7 +59,7 @@ farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,7,0) * CFrame.Angles(math.rad(-90),0,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,8,0) * CFrame.Angles(math.rad(-90),0,0)
 						click()
                         AutoEquipWeapon()
 						if not v:FindFirstChild("Humanoid") then
