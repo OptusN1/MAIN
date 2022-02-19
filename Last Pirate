@@ -100,9 +100,29 @@ farmsection:addToggle("Auto Farm Level [ Behide ]", false, function(a)
 		end
 	end)
 end)
-farmsection:addToggle("Auto SetSpawn", false, function(a)
-_G.AutoSetSpawn = a
+farmsection:addToggle("Auto Farm Sea Beast", false, function(a)
+	_G.autofarmsb = a
+
+	task.spawn(function()
+		while task.wait() do
+			if not _G.autofarmsb then break end
+			pcall(function()
+				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+                AutoHaki()
+				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
+					if v.Name == "Sea Beast" and v:FindFirstChild("Humanoid") then
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
+						click()
+						AutoEquipWeapon()
+					end
+				end
+			end)
+		end
+	end)
 end)
+farmsection:addToggle("Auto SetSpawn", false, function(a)
+	_G.AutoSetSpawn = a
+	end)
 local Weaponlist = {}
 local Weapon = nil
 
