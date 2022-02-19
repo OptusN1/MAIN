@@ -111,7 +111,27 @@ farmsection:addToggle("Auto Farm Sea Beast", false, function(a)
                 AutoHaki()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == "Sea Beast" and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0) * CFrame.Angles(math.rad(-90),0,0)
+						click()
+						AutoEquipWeapon()
+					end
+				end
+			end)
+		end
+	end)
+end)
+farmsection:addToggle("Auto Farm Tree Monster", false, function(a)
+	_G.autofarmTree = a
+
+	task.spawn(function()
+		while task.wait() do
+			if not _G.autofarmTree then break end
+			pcall(function()
+				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+                AutoHaki()
+				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
+					if v.Name == "TreeMoster" and v:FindFirstChild("Humanoid") then
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0) * CFrame.Angles(math.rad(-90),0,0)
 						click()
 						AutoEquipWeapon()
 					end
@@ -564,9 +584,9 @@ DFSECTION:addToggle("Bring All Devil Fruit", false, function(value)
 end) 
 local MiscPage = uii:addPage("Misc, Other", 5012544693)
 local MiscSection = MiscPage:addSection("Music, Song")
-MiscSection:addToggle("Homura 炎", nil, function(value)
+MiscSection:addToggle("Demon Slayer The Movies Openning", nil, function(value)
 	_G.MUSIC = value
-			Music = 6085563778
+			Music = 6023039666
 			a = Instance.new("Sound", game:GetService("Workspace"))
 			a.Name = "MUSIC_FUNCTION"
 			a.Volume = 1
@@ -574,6 +594,26 @@ MiscSection:addToggle("Homura 炎", nil, function(value)
 			a.SoundId = "rbxassetid://" .. Music
 			a.Playing = value
 		end)
+		MiscSection:addToggle("Demon Slayer SS1 Openning", nil, function(value)
+			_G.MUSIC = value
+					Music = 3507169083
+					a = Instance.new("Sound", game:GetService("Workspace"))
+					a.Name = "MUSIC_FUNCTION"
+					a.Volume = 1
+					a.Looped = false
+					a.SoundId = "rbxassetid://" .. Music
+					a.Playing = value
+				end)
+				MiscSection:addToggle("Aimer - ONE", nil, function(value)
+					_G.MUSIC = value
+							Music = 5114718302
+							a = Instance.new("Sound", game:GetService("Workspace"))
+							a.Name = "MUSIC_FUNCTION"
+							a.Volume = 1
+							a.Looped = false
+							a.SoundId = "rbxassetid://" .. Music
+							a.Playing = value
+						end)
 		MiscSection:addToggle("YRN", nil, function(value)
 	_G.MUSIC = value
 			Music = 495478375
@@ -756,10 +796,12 @@ if Level == 1 or Level <= 14 then
 		MONSTER = "Marines [Lv:200]"      ------- Marines
 	elseif Level == 600 or Level <= 699 then
 		MONSTER = "Fishman [Lv:600]" ------ Fishman
-	elseif Level == 700 or Level <= 849 then
+	elseif Level == 700 or Level <= 799 then
 		MONSTER = "WinterBandit [Lv:700]" ----- Winter
+	elseif Level == 800 or Level <= 849 then
+		MONSTER = "Eskimo [Lv:850]" ----- Winter
 	elseif Level == 850 or Level <= 949 then
-		MONSTER = "Sky Bandit [Lv:800]" ----- Sky Bandit
+		MONSTER = "Sky Bandit [Lv:850]" ----- Sky Bandit
 	elseif Level == 950 or Level <= 1149 then
 		MONSTER = "SkyBandit Boss [Lv:950]" ----- SkyBandit Boss
 	elseif Level == 1150 or Level <= 1199 then
