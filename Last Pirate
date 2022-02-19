@@ -621,34 +621,44 @@ MiscSection:addToggle("Play Music", false, function(value)
 	a.Playing = value
 end)
 local MiscSection2 = MiscPage:addSection("Fake Stats")
-MiscSection2:addTextbox("Fake Level", "[ Only Number ]", function(value)
+Level = game.Players.LocalPlayer.PlayerStats.Level.Value
+MiscSection2:addTextbox("Fake Level", "Default: "..Level, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.Level.Value = value
 end)
-MiscSection2:addTextbox("Fake Exp", "[ Only Number ]", function(value)
+Exp = game.Players.LocalPlayer.PlayerStats.Exp.Value
+MiscSection2:addTextbox("Fake Exp", "Default: "..Exp, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.Exp.Value = value
 end)
-MiscSection2:addTextbox("Fake Melee Stats", "[ Only Number ]", function(value)
+Melee = game.Players.LocalPlayer.PlayerStats.MeleeP.Value
+MiscSection2:addTextbox("Fake Melee Stats", "Default: "..Melee, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.MeleeP.Value = value
 end)
-MiscSection2:addTextbox("Fake Sword Stats", "[ Only Number ]", function(value)
+Sword = game.Players.LocalPlayer.PlayerStats.SwordP.Value
+MiscSection2:addTextbox("Fake Sword Stats", "Default: "..Sword, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.SwordP.Value = value
 end)
-MiscSection2:addTextbox("Fake Defense Stats", "[ Only Number ]", function(value)
+Defense = game.Players.LocalPlayer.PlayerStats.DefenseP.Value
+MiscSection2:addTextbox("Fake Defense Stats", "Default: "..Defense, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.DefenseP.Value = value
 end)
-MiscSection2:addTextbox("Fake Devil Fruit Stats", "[ Only Number ]", function(value)
+DF = game.Players.LocalPlayer.PlayerStats.DevilFruitP.Value
+MiscSection2:addTextbox("Fake Devil Fruit Stats", "Default: "..DF, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.DevilFruitP.Value = value
 end)
-MiscSection2:addTextbox("Fake Points", "[ Only Number ]", function(value)
-    game:GetService("Players")["LocalPlayer"].PlayerStats.DevilFruitP.Value = value
+Points = game.Players.LocalPlayer.PlayerStats.Points.Value
+MiscSection2:addTextbox("Fake Points", "Default: "..Points, function(value)
+    game:GetService("Players")["LocalPlayer"].PlayerStats.Points.Value = value
 end)
-MiscSection2:addTextbox("Fake Money", "[ Only Number ]", function(value)
+Beli = game.Players.LocalPlayer.PlayerStats.Money.Value
+MiscSection2:addTextbox("Fake Money", "Default: "..Beli, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.Money.Value = value
 end)
-MiscSection2:addTextbox("Fake LP", "[ Only Number ]", function(value)
+LP = game.Players.LocalPlayer.PlayerStats.LP.Value
+MiscSection2:addTextbox("Fake LP", "Default: "..LP, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.LP.Value = value
 end)
-MiscSection2:addTextbox("Fake Candy", "[ Only Number ]", function(value)
+CandyCane = game.Players.LocalPlayer.PlayerStats.CandyCane.Value
+MiscSection2:addTextbox("Fake Candy", "Default: "..CandyCane, function(value)
     game:GetService("Players")["LocalPlayer"].PlayerStats.CandyCane.Value = value
 end)
 local settingpage = uii:addPage("Setting", 7040347038)
@@ -940,3 +950,16 @@ function UpdateDevilFruit()
 		end)
 	end
 end
+
+
+-- themes
+local objects = {}
+local themes = {
+	Background = Color3.fromRGB(0, 0, 0), 
+	Glow = Color3.fromRGB(0, 200, 255), 
+	Accent = Color3.fromRGB(0, 0, 0), 
+	LightContrast = Color3.fromRGB(0, 0, 0), 
+	DarkContrast = Color3.fromRGB(0, 0, 0),  
+	TextColor = Color3.fromRGB(0, 200, 255)
+}
+
