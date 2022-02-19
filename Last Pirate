@@ -306,7 +306,7 @@ end)
 			localplayer = game.Players.LocalPlayer
 			game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
 			local torso = game.Players.LocalPlayer.Character.HumanoidRootPart
-			local speedSET = 15
+			local speedSET = 24
 			local keys = {a = false, d = false, w = false, s = false}
 			local e1
 			local e2
