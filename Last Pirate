@@ -19,12 +19,12 @@ local uii = library.new("LAST PIRATES | A I M E R I Z", 5013109572)
  
 local mainpage = uii:addPage("Main Page", 7040391851)
 local farmsection = mainpage:addSection("Auto Farm")
-farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
-	_G.autofarmUnder = a
+farmsection:addToggle("Auto Farm Level", false, function(a)
+	_G.autofarmlv = a
 	
 	task.spawn(function()
 		while task.wait() do
-			if not _G.autofarmUnder then break end
+			if not _G.autofarmlv then break end
 			pcall(function()
 				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
 				AutoQuest()
@@ -32,68 +32,9 @@ farmsection:addToggle("Auto Farm Level [ Under ]", false, function(a)
 				CheckLevel()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,-8,0) * CFrame.Angles(math.rad(90),0,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,DistanceFromMob,0) * CFrame.Angles(math.rad(-90),0,0)
 						click()
                         AutoEquipWeapon()
-					if not v:FindFirstChild("Humanoid") then
-						plr.Anchored = true
-					else 
-						plr.Anchored = false
-					end
-					end
-				end
-			end)
-		end
-	end)
-end)
-farmsection:addToggle("Auto Farm Level [ Top ]", false, function(a)
-	_G.autofarmTop = a
-	
-	task.spawn(function()
-		while task.wait() do
-			if not _G.autofarmTop then break end
-			pcall(function()
-				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
-				AutoQuest()
-                AutoHaki()
-				CheckLevel()
-				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
-					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,8,0) * CFrame.Angles(math.rad(-90),0,0)
-						click()
-                        AutoEquipWeapon()
-						if not v:FindFirstChild("Humanoid") then
-							plr.Anchored = true
-						else 
-							plr.Anchored = false
-						end
-					end
-				end
-			end)
-		end
-	end)
-end)
-farmsection:addToggle("Auto Farm Level [ Behide ]", false, function(a)
-	_G.autofarmBehide = a
-	
-	task.spawn(function()
-		while task.wait() do
-			if not _G.autofarmBehide then break end
-			pcall(function()
-				local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
-				AutoQuest()
-                AutoHaki()
-				CheckLevel()
-				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
-					if v.Name == MONSTER and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,8)
-						click()
-                        AutoEquipWeapon()
-						if v.Name == MONSTER and v.Humanoid.Health == 0 then	
-							plr.Anchored = true
-						else 
-							plr.Anchored = false
-						end
 					end
 				end
 			end)
@@ -111,7 +52,7 @@ farmsection:addToggle("Auto Farm Sea Beast", false, function(a)
                 AutoHaki()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == "Sea Beast" and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0) * CFrame.Angles(math.rad(-90),0,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,DistanceFromMob,0) * CFrame.Angles(math.rad(-90),0,0)
 						click()
 						AutoEquipWeapon()
 					end
@@ -131,7 +72,7 @@ farmsection:addToggle("Auto Farm Tree Monster", false, function(a)
                 AutoHaki()
 				for i, v in pairs(game.Workspace.Lives:GetChildren()) do
 					if v.Name == "TreeMoster" and v:FindFirstChild("Humanoid") then
-                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0) * CFrame.Angles(math.rad(-90),0,0)
+                        plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,DistanceFromMob,0) * CFrame.Angles(math.rad(-90),0,0)
 						click()
 						AutoEquipWeapon()
 					end
@@ -140,6 +81,37 @@ farmsection:addToggle("Auto Farm Tree Monster", false, function(a)
 		end
 	end)
 end)
+farmsection:addToggle("Lock Mon",false,function(a)
+	_G.LockMob = a
+	if _G.LockMob == true then
+	while _G.LockMob do wait()
+		cq()
+		for k,x in pairs(game.Workspace.Enemies:GetChildren()) do
+			if x.Name == Ms and x:FindFirstChild("HumanoidRootPart") and x:FindFirstChild("Humanoid") and x.Humanoid.Health > 0 and (x.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= magbring then
+						x.HumanoidRootPart.CanCollide = false
+						x.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
+						x.Humanoid.PlatformStand = false
+						x.Humanoid:ChangeState(11)
+						wait(0.1)
+						x.HumanoidRootPart.Anchored = false
+			end 
+		end
+	end
+	end
+	if _G.LockMob == false then
+		cq()
+		for k,x in pairs(game.Workspace.Enemies:GetChildren()) do
+					if x.Name == Ms and x:FindFirstChild("HumanoidRootPart") and x:FindFirstChild("Humanoid") and x.Humanoid.Health > 0 and (x.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= magbring then
+						x.HumanoidRootPart.CanCollide = false
+						x.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
+						x.Humanoid.PlatformStand = false
+						x.Humanoid:ChangeState(11)
+						wait(0.2)
+						x.HumanoidRootPart.Anchored = false
+					end 
+				end
+	end
+	end)
 farmsection:addToggle("Auto SetSpawn", false, function(a)
 	_G.AutoSetSpawn = a
 	end)
@@ -149,6 +121,9 @@ local Weapon = nil
 for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
     table.insert(Weaponlist,v.Name)
 end
+farmsection:addSlider("Distance From Monster", 8, 6, 50, function(a)
+	DistanceFromMob = a
+end)
 farmsection:addDropdown("Select Weapon",Weaponlist, function(a)
     Weapon = a
 end)
@@ -159,12 +134,12 @@ while _G.autoSkill do wait()
 	useSkill()
         end
     end)
-farmsection:addButton("Refresh Weapon", function(a)
-    table.clear(Weaponlist)
-for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
-   table.insert(Weaponlist,v.Name)
-end
-end)
+	farmsection:addButton("Refresh Weapon", function(a)
+		table.clear(Weaponlist)
+	for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+	   table.insert(Weaponlist,v.Name)
+	end
+	end)
 local farmsection2 = mainpage:addSection("Auto Haki")
 farmsection2:addToggle("Auto Buso Haki", false, function(a)
 _G.Haki = a
@@ -173,6 +148,13 @@ while _G.Haki do wait()
     AutoHaki()
 	end
 end)
+farmsection2:addToggle("Auto Ken Haki", false, function(a)
+	_G.Haki2 = a
+
+	while _G.Haki2 do wait()
+		AutoHaki()
+		end
+	end)
 local statspage = uii:addPage("Auto Stats", 7040410130)
 local statssection = statspage:addSection("Auto Stats")
 statssection:addToggle("Auto Melee Stats", false, function(a)
@@ -736,7 +718,6 @@ local themes = {
 		 wait(5)
 		 game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
 	end)
-
 	local CRR = uii:addPage("Credits", 7061136295)
 	local CR = CRR:addSection("Credits")
 CR:addButton("Discord | ServiceX Community", function()
@@ -944,7 +925,7 @@ spawn(function()
                 for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
                     if string.find(v.Name, "Fruit") then
                         if v:IsA("Tool") then
-                            v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+                            v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 							wait(.2)
             				firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v.Handle,0)
                         end
@@ -1004,4 +985,5 @@ local themes = {
 	DarkContrast = Color3.fromRGB(0, 0, 0),  
 	TextColor = Color3.fromRGB(0, 200, 255)
 }
+
 
